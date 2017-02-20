@@ -191,7 +191,7 @@ class Isolator
      */
     private function uniqueID(): string
     {
-        return md5(count($this->phpBlocks) . uniqid(true));
+        return hash_hmac('md5', count($this->phpBlocks), random_bytes(32));
     }
 
     /**

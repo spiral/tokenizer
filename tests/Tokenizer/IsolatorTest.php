@@ -64,4 +64,29 @@ class IsolatorTest extends \PHPUnit_Framework_TestCase
         $isolator->isolatePHP($source);
         $isolator->setBlock('abc', 'value');
     }
+
+
+    public function testAttempt1()
+    {
+        $source = 'Hello, world... <?php echo "hack";';
+
+        $isolator = new Isolator();
+        $this->assertNotContains('<?', $isolator->isolatePHP($source));
+    }
+
+    public function testAttempt2()
+    {
+        $source = 'Hello, world... <?php ';
+
+        $isolator = new Isolator();
+        $this->assertNotContains('<?', $isolator->isolatePHP($source));
+    }
+
+    public function testAttempt3()
+    {
+        $source = 'Hello, world... <?=dump($_SERVER);';
+
+        $isolator = new Isolator();
+        $this->assertNotContains('<?', $isolator->isolatePHP($source));
+    }
 }

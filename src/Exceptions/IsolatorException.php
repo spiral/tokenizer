@@ -11,6 +11,6 @@ namespace Spiral\Tokenizer\Exceptions;
 /**
  * Isolator specific exceptions.
  */
-class IsolatorException extends TokenizerException
+class IsolatorException extends \RuntimeException
 {
 }

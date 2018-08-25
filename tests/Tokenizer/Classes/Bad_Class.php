@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tests\Tokenizer\Classes;
+namespace Spiral\Tokenizer\Tests\Classes;
 
 class BadClass
 {

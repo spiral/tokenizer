@@ -179,11 +179,7 @@ class Isolator
      */
     private function blockRegex(): string
     {
-        return '/' .
-            preg_quote($this->prefix)
-            . '(?P<id>[0-9a-z]+)'
-            . preg_quote($this->postfix)
-            . '/';
+        return '/' . preg_quote($this->prefix) . '(?P<id>[0-9a-z]+)' . preg_quote($this->postfix) . '/';
     }
 
     /**
@@ -216,7 +212,6 @@ class Isolator
         }
 
         if ($token[0] == T_ECHO && $token[1] == '<?=') {
-            //todo Find out why HHVM behaves differently or create issue
             return true;
         }
 

@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tests\Tokenizer\Classes\Excluded;
+namespace Spiral\Tokenizer\Tests\Classes\Excluded;
 
 class ClassXX
 {

@@ -5,8 +5,9 @@
  * @author Wolfy-J
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
@@ -15,7 +16,7 @@ use Spiral\Tokenizer\InvocationsInterface;
 use Spiral\Tokenizer\InvocationsLocator;
 use Spiral\Tokenizer\Tokenizer;
 
-class InjectionsTest extends \PHPUnit_Framework_TestCase
+class InjectionsTest extends TestCase
 {
     public function testClassLocator()
     {

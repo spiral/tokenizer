@@ -5,16 +5,17 @@
  * @author Wolfy-J
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Spiral\Core\MemoryInterface;
 use Spiral\Files\FileManager;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\Reflections\ReflectionArgument;
 use Spiral\Tokenizer\Tokenizer;
 
-class ReflectionFileTest extends \PHPUnit_Framework_TestCase
+class ReflectionFileTest extends TestCase
 {
     public function testReflection()
     {

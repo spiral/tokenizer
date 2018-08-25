@@ -15,9 +15,6 @@ use Spiral\Core\InjectableConfig;
  */
 class TokenizerConfig extends InjectableConfig
 {
-    /**
-     * Configuration section.
-     */
     const CONFIG = 'tokenizer';
 
     /**

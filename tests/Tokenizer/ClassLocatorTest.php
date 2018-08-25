@@ -5,19 +5,20 @@
  * @author Wolfy-J
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
 use Mockery as m;
+use PHPUnit\Framework\TestCase;
 use Spiral\Core\MemoryInterface;
 use Spiral\Files\FileManager;
-use Spiral\Tests\Tokenizer\Classes\ClassA;
-use Spiral\Tests\Tokenizer\Classes\ClassB;
-use Spiral\Tests\Tokenizer\Classes\ClassC;
-use Spiral\Tests\Tokenizer\Classes\Inner\ClassD;
+use Spiral\Tokenizer\Tests\Classes\ClassA;
+use Spiral\Tokenizer\Tests\Classes\ClassB;
+use Spiral\Tokenizer\Tests\Classes\ClassC;
+use Spiral\Tokenizer\Tests\Classes\Inner\ClassD;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\Tokenizer;
 
-class ClassLocatorTest extends \PHPUnit_Framework_TestCase
+class ClassLocatorTest extends TestCase
 {
     public function testClassesAll()
     {
@@ -33,8 +34,8 @@ class ClassLocatorTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey(ClassD::class, $classes);
 
         //Excluded
-        $this->assertArrayNotHasKey('Spiral\Tests\Tokenizer\Classes\Excluded\ClassXX', $classes);
-        $this->assertArrayNotHasKey('Spiral\Tests\Tokenizer\Classes\Bad_Class', $classes);
+        $this->assertArrayNotHasKey('Spiral\Tokenizer\Tests\Classes\Excluded\ClassXX', $classes);
+        $this->assertArrayNotHasKey('Spiral\Tokenizer\Tests\Classes\Bad_Class', $classes);
     }
 
     public function testClassesByClass()
@@ -57,7 +58,7 @@ class ClassLocatorTest extends \PHPUnit_Framework_TestCase
         $tokenizer = $this->getTokenizer();
 
         //By interface
-        $classes = $tokenizer->classLocator()->getClasses('Spiral\Tests\Tokenizer\TestInterface');
+        $classes = $tokenizer->classLocator()->getClasses('Spiral\Tokenizer\Tests\TestInterface');
 
         $this->assertArrayHasKey(ClassB::class, $classes);
         $this->assertArrayHasKey(ClassC::class, $classes);
@@ -72,7 +73,7 @@ class ClassLocatorTest extends \PHPUnit_Framework_TestCase
         $tokenizer = $this->getTokenizer();
 
         //By trait
-        $classes = $tokenizer->classLocator()->getClasses('Spiral\Tests\Tokenizer\TestTrait');
+        $classes = $tokenizer->classLocator()->getClasses('Spiral\Tokenizer\Tests\TestTrait');
 
         $this->assertArrayHasKey(ClassB::class, $classes);
         $this->assertArrayHasKey(ClassC::class, $classes);

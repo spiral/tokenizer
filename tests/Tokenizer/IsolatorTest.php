@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
 use Spiral\Tokenizer\Isolator;
 

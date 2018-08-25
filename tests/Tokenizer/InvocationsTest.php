@@ -5,14 +5,15 @@
  * @author Wolfy-J
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\Reflections\ReflectionArgument;
 use Spiral\Tokenizer\Reflections\ReflectionInvocation;
 use Spiral\Tokenizer\Tokenizer;
 
-class InvocationsTest extends \PHPUnit_Framework_TestCase
+class InvocationsTest extends TestCase
 {
     protected function someFunction()
     {

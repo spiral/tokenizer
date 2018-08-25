@@ -22,7 +22,7 @@ use Symfony\Component\Finder\SplFileInfo;
 /**
  * Base class for Class and Invocation locators.
  */
-class AbstractLocator extends Component implements InjectableInterface, LoggerAwareInterface
+class AbstractLocator implements InjectableInterface, LoggerAwareInterface
 {
     use LoggerTrait;
 

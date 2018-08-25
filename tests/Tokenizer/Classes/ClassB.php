@@ -6,10 +6,10 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tests\Tokenizer\Classes;
+namespace Spiral\Tokenizer\Tests\Classes;
 
-use Spiral\Tests\Tokenizer\TestInterface;
-use Spiral\Tests\Tokenizer\TestTrait;
+use Spiral\Tokenizer\Tests\TestInterface;
+use Spiral\Tokenizer\Tests\TestTrait;
 
 class ClassB extends ClassA implements TestInterface
 {

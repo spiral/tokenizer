@@ -296,7 +296,7 @@ class ReflectionFile
                         && $this->tokens[$tokenID - 1][self::TOKEN_TYPE] == T_PAAMAYIM_NEKUDOTAYIM
                     ) {
                         //PHP5.5 ClassName::class constant
-                        continue;
+                        continue 2;
                     }
 
                     $this->registerDeclaration($tokenID, $token[self::TOKEN_TYPE]);

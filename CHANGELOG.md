@@ -6,7 +6,7 @@ CHANGELOG
 - removed old dependencies
 - phpunit version bump
 - core version bump
-- removed highligher
+- removed highlighter
 - getClasses() now returns ReflectionClass instead of array
 
 0.9.0 (07.02.2017)

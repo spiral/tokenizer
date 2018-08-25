@@ -8,7 +8,6 @@
 
 namespace Spiral\Tokenizer\Reflections;
 
-use Spiral\Core\Component;
 use Spiral\Tokenizer\TokenizerInterface;
 
 /**
@@ -16,7 +15,7 @@ use Spiral\Tokenizer\TokenizerInterface;
  * in file. In addition file reflection provides ability to fetch and describe every method/function
  * call.
  */
-class ReflectionFile extends Component
+class ReflectionFile
 {
     /**
      * Namespace separator.

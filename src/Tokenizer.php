@@ -8,30 +8,21 @@
 
 namespace Spiral\Tokenizer;
 
-use Spiral\Core\Component;
 use Spiral\Core\Container\InjectorInterface;
 use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\Exceptions\Container\InjectionException;
 use Spiral\Core\MemoryInterface;
 use Spiral\Core\NullMemory;
-use Spiral\Debug\Traits\BenchmarkTrait;
-use Spiral\Debug\Traits\LoggerTrait;
-use Spiral\Files\FileManager;
-use Spiral\Files\FilesInterface;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\Reflections\ReflectionFile;
-use Spiral\Tokenizer\Traits\TokensTrait;
 use Symfony\Component\Finder\Finder;
 
 /**
  * Default implementation of spiral tokenizer support while and blacklisted directories and etc.
- *
- * @todo this component have been written long time ago and require facelift
+ * Current implementation is based on token parsing, AST support is desired in future.
  */
 class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInterface
 {
-    use TokensTrait;
-
     /**
      * Memory section.
      */
@@ -44,14 +35,6 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
 
     /**
      * @invisible
-     *
-     * @var FilesInterface
-     */
-    protected $files;
-
-    /**
-     * @invisible
-     *
      * @var MemoryInterface
      */
     protected $memory;
@@ -60,12 +43,10 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
      * Tokenizer constructor.
      *
      * @param TokenizerConfig $config
-     * @param MemoryInterface $memory
+     * @param MemoryInterface $memory Caching.
      */
-    public function __construct(
-        TokenizerConfig $config,
-        MemoryInterface $memory = null
-    ) {
+    public function __construct(TokenizerConfig $config, MemoryInterface $memory = null)
+    {
         $this->config = $config;
         $this->memory = $memory ?? new NullMemory();
     }
@@ -75,16 +56,21 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
      */
     public function fileReflection(string $filename): ReflectionFile
     {
-        $fileMD5 = $this->files->md5($filename = $this->files->normalizePath($filename));
+        $fileID = sprintf(
+            "%s/%s.%s",
+            self::MEMORY,
+            basename($filename),
+            md5_file($filename)
+        );
 
         $reflection = new ReflectionFile(
             $filename,
-            $this->normalizeTokens(token_get_all($this->files->read($filename))),
-            (array)$this->memory->loadData(self::MEMORY . '.' . $fileMD5)
+            $this->getTokens($filename),
+            (array)$this->memory->loadData($fileID)
         );
 
         //Let's save to cache
-        $this->memory->saveData(self::MEMORY . '.' . $fileMD5, $reflection->exportSchema());
+        $this->memory->saveData($fileID, $reflection->exportSchema());
 
         return $reflection;
     }
@@ -136,15 +122,13 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
     }
 
     /**
-     * @param array $directories
-     * @param array $exclude
+     * @param array $directories Overwrites default config values.
+     * @param array $exclude     Overwrites default config values.
      *
      * @return Finder
      */
-    private function makeFinder(
-        array $directories = [],
-        array $exclude = []
-    ): Finder {
+    private function makeFinder(array $directories = [], array $exclude = []): Finder
+    {
         $finder = new Finder();
 
         if (empty($directories)) {
@@ -156,5 +140,32 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
         }
 
         return $finder->files()->in($directories)->exclude($exclude)->name('*.php');
+    }
+
+    /**
+     * Get all tokes for specific file.
+     *
+     * @param string $filename
+     *
+     * @return array
+     */
+    private function getTokens(string $filename): array
+    {
+        $tokens = token_get_all(file_get_contents($filename));
+
+        $line = 0;
+        foreach ($tokens as &$token) {
+            if (isset($token[TokenizerInterface::LINE])) {
+                $line = $token[TokenizerInterface::LINE];
+            }
+
+            if (!is_array($token)) {
+                $token = [$token, $token, $line];
+            }
+
+            unset($token);
+        }
+
+        return $tokens;
     }
 }

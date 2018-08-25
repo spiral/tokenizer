@@ -6,25 +6,19 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tokenizer\Prototypes;
+namespace Spiral\Tokenizer;
 
-use Psr\Log\LoggerAwareInterface;
-use Spiral\Core\Component;
 use Spiral\Core\Container\InjectableInterface;
-use Spiral\Debug\Traits\LoggerTrait;
 use Spiral\Tokenizer\Exceptions\LocatorException;
 use Spiral\Tokenizer\Reflections\ReflectionFile;
-use Spiral\Tokenizer\Tokenizer;
-use Spiral\Tokenizer\TokenizerInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Base class for Class and Invocation locators.
  */
-class AbstractLocator implements InjectableInterface, LoggerAwareInterface
+abstract class AbstractLocator implements InjectableInterface
 {
-    use LoggerTrait;
 
     /**
      * Parent injector/factory.
@@ -100,12 +94,7 @@ class AbstractLocator implements InjectableInterface, LoggerAwareInterface
             //we are going to handle such exception and convert it soft exception
             return new \ReflectionClass($class);
         } catch (\Throwable $e) {
-            $this->getLogger()->error(
-                "Unable to resolve class '{class}', error '{message}'",
-                ['class' => $class, 'message' => $e->getMessage()]
-            );
-
-            throw new LocatorException($e->getMessage(), $e->getCode());
+            throw new LocatorException($e->getMessage(), $e->getCode(), $e);
         } finally {
             spl_autoload_unregister($loader);
         }

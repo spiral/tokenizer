@@ -21,6 +21,7 @@ interface InvocationsInterface
      * limitations.
      *
      * @param \ReflectionFunctionAbstract $function
+     *
      * @return ReflectionInvocation[]
      */
     public function getInvocations(\ReflectionFunctionAbstract $function): array;

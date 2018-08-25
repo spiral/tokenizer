@@ -9,8 +9,7 @@ namespace Spiral\Tokenizer\Tests;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use Spiral\Core\MemoryInterface;
-use Spiral\Files\FileManager;
+use Spiral\Core\NullMemory;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\Reflections\ReflectionArgument;
 use Spiral\Tokenizer\Tokenizer;
@@ -19,12 +18,7 @@ class ReflectionFileTest extends TestCase
 {
     public function testReflection()
     {
-        //Disabling cache
-        $memory = m::mock(MemoryInterface::class);
-        $memory->shouldReceive('loadData')->andReturn([]);
-        $memory->shouldReceive('saveData');
-
-        $tokenizer = new Tokenizer(m::mock(TokenizerConfig::class), new FileManager(), $memory);
+        $tokenizer = new Tokenizer(m::mock(TokenizerConfig::class), new NullMemory());
 
         $reflection = $tokenizer->fileReflection(__FILE__);
 

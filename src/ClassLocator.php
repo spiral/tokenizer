@@ -9,7 +9,6 @@
 namespace Spiral\Tokenizer;
 
 use Spiral\Tokenizer\Exceptions\LocatorException;
-use Spiral\Tokenizer\Prototypes\AbstractLocator;
 
 /**
  * Can locate classes in a specified directory.
@@ -38,11 +37,7 @@ class ClassLocator extends AbstractLocator implements ClassesInterface
                 continue;
             }
 
-            $result[$reflection->getName()] = [
-                'name'     => $reflection->getName(),
-                'filename' => $reflection->getFileName(),
-                'abstract' => $reflection->isAbstract()
-            ];
+            $result[$reflection->getName()] = $reflection;
         }
 
         return $result;

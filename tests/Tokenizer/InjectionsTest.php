@@ -8,51 +8,47 @@
 namespace Spiral\Tokenizer\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
+use Spiral\Tokenizer\Bootloaders\TokenizerBootloader;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\InvocationsInterface;
 use Spiral\Tokenizer\InvocationsLocator;
-use Spiral\Tokenizer\Tokenizer;
 
 class InjectionsTest extends TestCase
 {
     public function testClassLocator()
     {
-        $tokenizer = new Tokenizer(new TokenizerConfig([
+        $container = new Container();
+        $container->bind(TokenizerConfig::class, new TokenizerConfig([
             'directories' => [__DIR__],
             'exclude'     => []
         ]));
-
-        $container = new Container();
-        $container->bind(Tokenizer::class, $tokenizer);
-        $container->bind(ClassesInterface::class, ClassLocator::class);
+        $bootloader = new BootloadManager($container);
+        $bootloader->bootload([TokenizerBootloader::class]);
 
         $this->assertInstanceOf(
             ClassLocator::class,
-            $locator = $container->get(ClassesInterface::class)
+            $container->get(ClassesInterface::class)
         );
-
-        $this->assertEquals($locator, $tokenizer->classLocator());
     }
 
     public function testInvocationsLocator()
     {
-        $tokenizer = new Tokenizer(new TokenizerConfig([
+        $container = new Container();
+        $container->bind(TokenizerConfig::class, new TokenizerConfig([
             'directories' => [__DIR__],
             'exclude'     => []
         ]));
 
-        $container = new Container();
-        $container->bind(Tokenizer::class, $tokenizer);
-        $container->bind(InvocationsInterface::class, InvocationsLocator::class);
+        $bootloader = new BootloadManager($container);
+        $bootloader->bootload([TokenizerBootloader::class]);
 
         $this->assertInstanceOf(
             InvocationsLocator::class,
-            $locator = $container->get(InvocationsInterface::class)
+            $container->get(InvocationsInterface::class)
         );
-
-        $this->assertEquals($locator, $tokenizer->invocationLocator());
     }
 }

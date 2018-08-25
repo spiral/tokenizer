@@ -5,11 +5,12 @@
  * @author Wolfy-J
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 
-class ConfigTest extends \PHPUnit_Framework_TestCase
+class ConfigTest extends TestCase
 {
     public function testDirectories()
     {

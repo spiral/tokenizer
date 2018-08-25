@@ -9,7 +9,6 @@
 namespace Spiral\Tokenizer;
 
 use Spiral\Tokenizer\Exceptions\LocatorException;
-use Spiral\Tokenizer\Prototypes\AbstractLocator;
 use Spiral\Tokenizer\Reflections\ReflectionInvocation;
 
 /**

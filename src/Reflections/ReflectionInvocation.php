@@ -98,7 +98,7 @@ class ReflectionInvocation
      */
     public function getFilename(): string
     {
-        return $this->filename;
+        return str_replace('\\', '/', $this->filename);
     }
 
     /**
@@ -152,7 +152,7 @@ class ReflectionInvocation
     }
 
     /**
-     * Function usage source.
+     * Function usage src.
      *
      * @return string
      */

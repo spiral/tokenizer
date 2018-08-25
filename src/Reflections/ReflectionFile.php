@@ -8,7 +8,6 @@
 
 namespace Spiral\Tokenizer\Reflections;
 
-use Spiral\Core\Component;
 use Spiral\Tokenizer\TokenizerInterface;
 
 /**
@@ -16,7 +15,7 @@ use Spiral\Tokenizer\TokenizerInterface;
  * in file. In addition file reflection provides ability to fetch and describe every method/function
  * call.
  */
-class ReflectionFile extends Component
+class ReflectionFile
 {
     /**
      * Namespace separator.
@@ -297,7 +296,7 @@ class ReflectionFile extends Component
                         && $this->tokens[$tokenID - 1][self::TOKEN_TYPE] == T_PAAMAYIM_NEKUDOTAYIM
                     ) {
                         //PHP5.5 ClassName::class constant
-                        continue;
+                        continue 2;
                     }
 
                     $this->registerDeclaration($tokenID, $token[self::TOKEN_TYPE]);
@@ -740,7 +739,7 @@ class ReflectionFile extends Component
     }
 
     /**
-     * Get source located between two tokens.
+     * Get src located between two tokens.
      *
      * @param int $startID
      * @param int $endID
@@ -751,7 +750,7 @@ class ReflectionFile extends Component
     {
         $result = '';
         for ($tokenID = $startID; $tokenID <= $endID; ++$tokenID) {
-            //Collecting function usage source
+            //Collecting function usage src
             $result .= $this->tokens[$tokenID][self::TOKEN_CODE];
         }
 

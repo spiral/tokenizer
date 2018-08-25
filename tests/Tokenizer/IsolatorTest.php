@@ -6,11 +6,12 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tests\Tokenizer;
+namespace Spiral\Tokenizer\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Spiral\Tokenizer\Isolator;
 
-class IsolatorTest extends \PHPUnit_Framework_TestCase
+class IsolatorTest extends TestCase
 {
     public function testDetection()
     {

@@ -11,7 +11,7 @@ namespace Spiral\Tokenizer;
 use Spiral\Tokenizer\Exceptions\IsolatorException;
 
 /**
- * Isolators used to find and replace php blocks in given source. Can be used by view processors,
+ * Isolators used to find and replace php blocks in given src. Can be used by view processors,
  * or to remove php code from some string.
  */
 class Isolator
@@ -25,7 +25,7 @@ class Isolator
 
     /**
      * Isolation prefix. Use any values that will not corrupt HTML or
-     * other source.
+     * other src.
      *
      * @var string
      */
@@ -33,7 +33,7 @@ class Isolator
 
     /**
      * Isolation postfix. Use any values that will not corrupt HTML
-     * or other source.
+     * or other src.
      *
      * @var string
      */
@@ -51,7 +51,7 @@ class Isolator
 
     /**
      * Isolates all returned PHP blocks with a defined pattern. Method uses
-     * token_get_all function. Resulted source have all php blocks replaced
+     * token_get_all function. Resulted src have all php blocks replaced
      * with non executable placeholder.
      *
      * @param string $source
@@ -125,7 +125,7 @@ class Isolator
     }
 
     /**
-     * Restore PHP blocks position in isolated source (isolatePHP() must
+     * Restore PHP blocks position in isolated src (isolatePHP() must
      * be already called).
      *
      * @param string $source
@@ -154,7 +154,7 @@ class Isolator
     }
 
     /**
-     * Remove PHP blocks from isolated source (isolatePHP() must be
+     * Remove PHP blocks from isolated src (isolatePHP() must be
      * already called).
      *
      * @param string $isolatedSource
@@ -179,11 +179,7 @@ class Isolator
      */
     private function blockRegex(): string
     {
-        return '/' .
-            preg_quote($this->prefix)
-            . '(?P<id>[0-9a-z]+)'
-            . preg_quote($this->postfix)
-            . '/';
+        return '/' . preg_quote($this->prefix) . '(?P<id>[0-9a-z]+)' . preg_quote($this->postfix) . '/';
     }
 
     /**
@@ -216,7 +212,6 @@ class Isolator
         }
 
         if ($token[0] == T_ECHO && $token[1] == '<?=') {
-            //todo Find out why HHVM behaves differently or create issue
             return true;
         }
 

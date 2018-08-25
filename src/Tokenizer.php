@@ -28,9 +28,9 @@ use Symfony\Component\Finder\Finder;
  *
  * @todo this component have been written long time ago and require facelift
  */
-class Tokenizer extends Component implements SingletonInterface, TokenizerInterface, InjectorInterface
+class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInterface
 {
-    use LoggerTrait, BenchmarkTrait, TokensTrait;
+    use TokensTrait;
 
     /**
      * Memory section.
@@ -60,17 +60,13 @@ class Tokenizer extends Component implements SingletonInterface, TokenizerInterf
      * Tokenizer constructor.
      *
      * @param TokenizerConfig $config
-     * @param FilesInterface  $files
      * @param MemoryInterface $memory
      */
     public function __construct(
         TokenizerConfig $config,
-        FilesInterface $files = null,
         MemoryInterface $memory = null
     ) {
         $this->config = $config;
-
-        $this->files = $files ?? new FileManager();
         $this->memory = $memory ?? new NullMemory();
     }
 

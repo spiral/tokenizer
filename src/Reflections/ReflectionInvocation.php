@@ -152,7 +152,7 @@ class ReflectionInvocation
     }
 
     /**
-     * Function usage source.
+     * Function usage src.
      *
      * @return string
      */

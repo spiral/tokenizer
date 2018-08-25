@@ -740,7 +740,7 @@ class ReflectionFile extends Component
     }
 
     /**
-     * Get source located between two tokens.
+     * Get src located between two tokens.
      *
      * @param int $startID
      * @param int $endID
@@ -751,7 +751,7 @@ class ReflectionFile extends Component
     {
         $result = '';
         for ($tokenID = $startID; $tokenID <= $endID; ++$tokenID) {
-            //Collecting function usage source
+            //Collecting function usage src
             $result .= $this->tokens[$tokenID][self::TOKEN_CODE];
         }
 

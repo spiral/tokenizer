@@ -9,6 +9,7 @@ namespace Spiral\Tokenizer\Tests;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\AbstractLogger;
 use Spiral\Core\NullMemory;
 use Spiral\Tokenizer\Configs\TokenizerConfig;
 use Spiral\Tokenizer\Tests\Classes\ClassA;
@@ -100,8 +101,6 @@ class ClassLocatorTest extends TestCase
     public function testClassesByClassB()
     {
         $tokenizer = $this->getTokenizer();
-
-        //By class
         $classes = $tokenizer->classLocator()->getClasses(ClassB::class);
 
         $this->assertArrayHasKey(ClassB::class, $classes);
@@ -110,6 +109,31 @@ class ClassLocatorTest extends TestCase
         $this->assertArrayNotHasKey(self::class, $classes);
         $this->assertArrayNotHasKey(ClassA::class, $classes);
         $this->assertArrayNotHasKey(ClassD::class, $classes);
+    }
+
+    public function testLoggerErrors()
+    {
+        $tokenizer = $this->getTokenizer();
+
+        //By class
+        $locator = $tokenizer->classLocator();
+        $logger = new AggregateLogger();
+        /**
+         * @var \Spiral\Tokenizer\ClassLocator $locator
+         */
+        $locator->setLogger($logger);
+
+        $classes = $locator->getClasses(ClassB::class);
+
+        $this->assertContains(
+            'Class \'Spiral\Tokenizer\Tests\Classes\BadClass\' can not be loaded',
+            $logger->getMessages()[0]['message']
+        );
+
+        $this->assertContains(
+            'syntax error, unexpected end of file, expecting function (T_FUNCTION) or const (T_CONST)',
+            $logger->getMessages()[1]['message']
+        );
     }
 
     protected function getTokenizer()
@@ -121,5 +145,20 @@ class ClassLocatorTest extends TestCase
         $tokenizer = new Tokenizer($config, new NullMemory());
 
         return $tokenizer;
+    }
+}
+
+class AggregateLogger extends AbstractLogger
+{
+    private $messages = [];
+
+    public function log($level, $message, array $context = [])
+    {
+        $this->messages[] = compact('level', 'message');
+    }
+
+    public function getMessages()
+    {
+        return $this->messages;
     }
 }

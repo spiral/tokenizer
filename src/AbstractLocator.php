@@ -102,6 +102,7 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
                 sprintf("Error loading `%s`: %s", $class, $e->getMessage()),
                 ['error' => $e]
             );
+
             throw new LocatorException($e->getMessage(), $e->getCode(), $e);
         } finally {
             spl_autoload_unregister($loader);

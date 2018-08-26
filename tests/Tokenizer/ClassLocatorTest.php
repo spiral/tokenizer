@@ -126,13 +126,18 @@ class ClassLocatorTest extends TestCase
         $classes = $locator->getClasses(ClassB::class);
 
         $this->assertContains(
-            'Class \'Spiral\Tokenizer\Tests\Classes\BadClass\' can not be loaded',
+            ' has includes and excluded from analysis',
             $logger->getMessages()[0]['message']
         );
 
         $this->assertContains(
-            'syntax error, unexpected end of file, expecting function (T_FUNCTION) or const (T_CONST)',
+            'Class \'Spiral\Tokenizer\Tests\Classes\BadClass\' can not be loaded',
             $logger->getMessages()[1]['message']
+        );
+
+        $this->assertContains(
+            'syntax error, unexpected end of file, expecting function (T_FUNCTION) or const (T_CONST)',
+            $logger->getMessages()[2]['message']
         );
     }
 

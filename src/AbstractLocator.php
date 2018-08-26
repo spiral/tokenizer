@@ -62,6 +62,11 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
 
             if ($reflection->hasIncludes()) {
                 //We are not analyzing files which has includes, it's not safe to require such reflections
+                $this->getLogger()->warning(
+                    sprintf("File `%s` has includes and excluded from analysis", $file),
+                    compact('file')
+                );
+
                 continue;
             }
 

@@ -1,6 +1,10 @@
 CHANGELOG
 ======================
 
+2.0.1 (26.08.2018)
+-----
+- better logging for failed analysis
+
 2.0.0 (25.08.2018)
 -----
 - removed old dependencies

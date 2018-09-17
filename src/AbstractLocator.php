@@ -10,7 +10,7 @@ namespace Spiral\Tokenizer;
 
 use Psr\Log\LoggerAwareInterface;
 use Spiral\Core\Container\InjectableInterface;
-use Spiral\Debug\Traits\LoggerTrait;
+use Spiral\Logger\Traits\LoggerTrait;
 use Spiral\Tokenizer\Exceptions\LocatorException;
 use Spiral\Tokenizer\Reflections\ReflectionFile;
 use Symfony\Component\Finder\Finder;
@@ -108,7 +108,13 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
             }
 
             $this->getLogger()->error(
-                sprintf("Error loading `%s`: %s", $class, $e->getMessage()),
+                sprintf(
+                    "Error loading `%s`: %s in %s:%s",
+                    $class,
+                    $e->getMessage(),
+                    $e->getFile(),
+                    $e->getLine()
+                ),
                 ['error' => $e]
             );
 

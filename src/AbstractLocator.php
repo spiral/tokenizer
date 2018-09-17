@@ -88,6 +88,10 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
     protected function classReflection(string $class): \ReflectionClass
     {
         $loader = function ($class) {
+            if ($class == LocatorException::class) {
+                return;
+            }
+
             throw new LocatorException("Class '{$class}' can not be loaded");
         };
 

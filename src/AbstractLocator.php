@@ -109,7 +109,7 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
 
             $this->getLogger()->error(
                 sprintf(
-                    "Error loading `%s`: %s in %s:%s",
+                    "%s: %s in %s:%s",
                     $class,
                     $e->getMessage(),
                     $e->getFile(),

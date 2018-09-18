@@ -11,7 +11,7 @@ use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\AbstractLogger;
 use Spiral\Core\NullMemory;
-use Spiral\Tokenizer\Configs\TokenizerConfig;
+use Spiral\Tokenizer\Config\TokenizerConfig;
 use Spiral\Tokenizer\Tests\Classes\ClassA;
 use Spiral\Tokenizer\Tests\Classes\ClassB;
 use Spiral\Tokenizer\Tests\Classes\ClassC;

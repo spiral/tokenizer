@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tokenizer\Reflections;
+namespace Spiral\Tokenizer\Reflection;
 
 use Spiral\Tokenizer\TokenizerInterface;
 

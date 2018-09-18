@@ -6,9 +6,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tokenizer\Reflections;
+namespace Spiral\Tokenizer\Reflection;
 
-use Spiral\Tokenizer\Exceptions\ReflectionException;
+use Spiral\Tokenizer\Exception\ReflectionException;
 
 /**
  * Represent argument using in method or function invocation with it's type and value.

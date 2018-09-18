@@ -8,7 +8,7 @@
 namespace Spiral\Tokenizer\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Tokenizer\Configs\TokenizerConfig;
+use Spiral\Tokenizer\Config\TokenizerConfig;
 
 class ConfigTest extends TestCase
 {

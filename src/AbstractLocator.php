@@ -11,8 +11,8 @@ namespace Spiral\Tokenizer;
 use Psr\Log\LoggerAwareInterface;
 use Spiral\Core\Container\InjectableInterface;
 use Spiral\Logger\Traits\LoggerTrait;
-use Spiral\Tokenizer\Exceptions\LocatorException;
-use Spiral\Tokenizer\Reflections\ReflectionFile;
+use Spiral\Tokenizer\Exception\LocatorException;
+use Spiral\Tokenizer\Reflection\ReflectionFile;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 

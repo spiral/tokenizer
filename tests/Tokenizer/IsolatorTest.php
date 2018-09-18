@@ -55,7 +55,7 @@ class IsolatorTest extends TestCase
     }
 
     /**
-     * @expectedException \Spiral\Tokenizer\Exceptions\IsolatorException
+     * @expectedException \Spiral\Tokenizer\Exception\IsolatorException
      */
     public function testBadBlock()
     {

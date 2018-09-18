@@ -10,8 +10,8 @@ namespace Spiral\Tokenizer\Tests;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\NullMemory;
-use Spiral\Tokenizer\Configs\TokenizerConfig;
-use Spiral\Tokenizer\Reflections\ReflectionArgument;
+use Spiral\Tokenizer\Config\TokenizerConfig;
+use Spiral\Tokenizer\Reflection\ReflectionArgument;
 use Spiral\Tokenizer\Tokenizer;
 
 class ReflectionFileTest extends TestCase

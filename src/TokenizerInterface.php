@@ -8,9 +8,9 @@
 
 namespace Spiral\Tokenizer;
 
-use Spiral\Tokenizer\Exceptions\ReflectionException;
-use Spiral\Tokenizer\Exceptions\TokenizerException;
-use Spiral\Tokenizer\Reflections\ReflectionFile;
+use Spiral\Tokenizer\Exception\ReflectionException;
+use Spiral\Tokenizer\Exception\TokenizerException;
+use Spiral\Tokenizer\Reflection\ReflectionFile;
 
 /**
  * Provides ability to get file reflections and fetch normalized tokens for a specified filename.

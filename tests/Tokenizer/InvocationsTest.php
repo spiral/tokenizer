@@ -8,9 +8,9 @@
 namespace Spiral\Tokenizer\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Tokenizer\Configs\TokenizerConfig;
-use Spiral\Tokenizer\Reflections\ReflectionArgument;
-use Spiral\Tokenizer\Reflections\ReflectionInvocation;
+use Spiral\Tokenizer\Config\TokenizerConfig;
+use Spiral\Tokenizer\Reflection\ReflectionArgument;
+use Spiral\Tokenizer\Reflection\ReflectionInvocation;
 use Spiral\Tokenizer\Tokenizer;
 
 class InvocationsTest extends TestCase

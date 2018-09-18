@@ -8,7 +8,7 @@
 
 namespace Spiral\Tokenizer;
 
-use Spiral\Tokenizer\Exceptions\IsolatorException;
+use Spiral\Tokenizer\Exception\IsolatorException;
 
 /**
  * Isolators used to find and replace php blocks in given src. Can be used by view processors,

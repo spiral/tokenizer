@@ -6,7 +6,7 @@
  * @author  Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tokenizer\Configs;
+namespace Spiral\Tokenizer\Config;
 
 use Spiral\Core\InjectableConfig;
 

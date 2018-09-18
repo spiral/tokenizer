@@ -6,9 +6,9 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tokenizer\Reflections;
+namespace Spiral\Tokenizer\Reflection;
 
-use Spiral\Tokenizer\Exceptions\ReflectionException;
+use Spiral\Tokenizer\Exception\ReflectionException;
 
 /**
  * ReflectionInvocation used to represent function or static method call found by ReflectionFile.

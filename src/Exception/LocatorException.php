@@ -6,7 +6,7 @@
  * @author    Anton Titov (Wolfy-J)
  */
 
-namespace Spiral\Tokenizer\Exceptions;
+namespace Spiral\Tokenizer\Exception;
 
 /**
  * Raised when class can not be loaded.

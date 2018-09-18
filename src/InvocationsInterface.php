@@ -8,7 +8,7 @@
 
 namespace Spiral\Tokenizer;
 
-use Spiral\Tokenizer\Reflections\ReflectionInvocation;
+use Spiral\Tokenizer\Reflection\ReflectionInvocation;
 
 /**
  * Analog of LocatorInterface for method/function invocations. Can only work with simple invocations

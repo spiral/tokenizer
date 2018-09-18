@@ -8,7 +8,7 @@
 
 namespace Spiral\Tokenizer;
 
-use Spiral\Tokenizer\Exceptions\LocatorException;
+use Spiral\Tokenizer\Exception\LocatorException;
 
 /**
  * Can locate classes in a specified directory.

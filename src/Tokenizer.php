@@ -13,8 +13,8 @@ use Spiral\Core\Container\SingletonInterface;
 use Spiral\Core\Exceptions\Container\InjectionException;
 use Spiral\Core\MemoryInterface;
 use Spiral\Core\NullMemory;
-use Spiral\Tokenizer\Configs\TokenizerConfig;
-use Spiral\Tokenizer\Reflections\ReflectionFile;
+use Spiral\Tokenizer\Config\TokenizerConfig;
+use Spiral\Tokenizer\Reflection\ReflectionFile;
 use Symfony\Component\Finder\Finder;
 
 /**

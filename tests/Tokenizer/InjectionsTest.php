@@ -10,10 +10,10 @@ namespace Spiral\Tokenizer\Tests;
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
-use Spiral\Tokenizer\Bootloaders\TokenizerBootloader;
+use Spiral\Tokenizer\Bootloader\TokenizerBootloader;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
-use Spiral\Tokenizer\Configs\TokenizerConfig;
+use Spiral\Tokenizer\Config\TokenizerConfig;
 use Spiral\Tokenizer\InvocationsInterface;
 use Spiral\Tokenizer\InvocationsLocator;
 

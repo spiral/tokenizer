@@ -102,7 +102,7 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
         array $directories = [],
         array $exclude = []
     ): InvocationsInterface {
-        return new InvocationsLocator($this, $this->makeFinder($directories, $exclude));
+        return new InvocationLocator($this, $this->makeFinder($directories, $exclude));
     }
 
     /**

@@ -129,16 +129,6 @@ class ClassLocatorTest extends TestCase
             ' has includes and excluded from analysis',
             $logger->getMessages()[0]['message']
         );
-print_r($logger->getMessages());
-//        $this->assertContains(
-//            'Class \'Spiral\Tokenizer\Tests\Classes\BadClass\' can not be loaded',
-//            $logger->getMessages()[1]['message']
-//        );
-
-        $this->assertContains(
-            'syntax error, unexpected end of file, expecting function (T_FUNCTION) or const (T_CONST)',
-            $logger->getMessages()[2]['message']
-        );
     }
 
     protected function getTokenizer()

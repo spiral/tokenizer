@@ -159,6 +159,16 @@ class ReflectionFile
     }
 
     /**
+     * Filename.
+     *
+     * @return string
+     */
+    public function getFilename(): string
+    {
+        return $this->filename;
+    }
+
+    /**
      * List of declared function names
      *
      * @return array

@@ -8,6 +8,7 @@
 
 namespace Spiral\Tokenizer\Reflection;
 
+use Spiral\Tokenizer\Tokenizer;
 use Spiral\Tokenizer\TokenizerInterface;
 
 /**
@@ -140,10 +141,10 @@ class ReflectionFile
      * @param array  $cache Tokenizer can construct reflection with pre-created cache to speed up
      *                      indexation.
      */
-    public function __construct(string $filename, array $tokens, array $cache = [])
+    public function __construct(string $filename, array $tokens = [], array $cache = [])
     {
         $this->filename = $filename;
-        $this->tokens = $tokens;
+        $this->tokens = $tokens ?? Tokenizer::getTokens($filename);
         $this->countTokens = count($tokens);
 
         if (!empty($cache)) {

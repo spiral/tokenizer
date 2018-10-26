@@ -122,6 +122,33 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
     }
 
     /**
+     * Get all tokes for specific file.
+     *
+     * @param string $filename
+     *
+     * @return array
+     */
+    public static function getTokens(string $filename): array
+    {
+        $tokens = token_get_all(file_get_contents($filename));
+
+        $line = 0;
+        foreach ($tokens as &$token) {
+            if (isset($token[TokenizerInterface::LINE])) {
+                $line = $token[TokenizerInterface::LINE];
+            }
+
+            if (!is_array($token)) {
+                $token = [$token, $token, $line];
+            }
+
+            unset($token);
+        }
+
+        return $tokens;
+    }
+
+    /**
      * @param array $directories Overwrites default config values.
      * @param array $exclude     Overwrites default config values.
      *
@@ -140,32 +167,5 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
         }
 
         return $finder->files()->in($directories)->exclude($exclude)->name('*.php');
-    }
-
-    /**
-     * Get all tokes for specific file.
-     *
-     * @param string $filename
-     *
-     * @return array
-     */
-    private function getTokens(string $filename): array
-    {
-        $tokens = token_get_all(file_get_contents($filename));
-
-        $line = 0;
-        foreach ($tokens as &$token) {
-            if (isset($token[TokenizerInterface::LINE])) {
-                $line = $token[TokenizerInterface::LINE];
-            }
-
-            if (!is_array($token)) {
-                $token = [$token, $token, $line];
-            }
-
-            unset($token);
-        }
-
-        return $tokens;
     }
 }

@@ -10,12 +10,11 @@ namespace Spiral\Tokenizer\Tests;
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
-use Spiral\Tokenizer\Bootloader\TokenizerBootloader;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Spiral\Tokenizer\InvocationsInterface;
-use Spiral\Tokenizer\InvocationsLocator;
+use Spiral\Tokenizer\InvocationLocator;
 
 class InjectionsTest extends TestCase
 {
@@ -26,8 +25,8 @@ class InjectionsTest extends TestCase
             'directories' => [__DIR__],
             'exclude'     => []
         ]));
-        $bootloader = new BootloadManager($container);
-        $bootloader->bootload([TokenizerBootloader::class]);
+
+        $container->bindSingleton(ClassesInterface::class, ClassLocator::class);
 
         $this->assertInstanceOf(
             ClassLocator::class,
@@ -43,11 +42,10 @@ class InjectionsTest extends TestCase
             'exclude'     => []
         ]));
 
-        $bootloader = new BootloadManager($container);
-        $bootloader->bootload([TokenizerBootloader::class]);
+        $container->bindSingleton(InvocationsInterface::class, InvocationLocator::class);
 
         $this->assertInstanceOf(
-            InvocationsLocator::class,
+            InvocationLocator::class,
             $container->get(InvocationsInterface::class)
         );
     }

@@ -17,7 +17,7 @@ use Spiral\Tokenizer\Reflection\ReflectionInvocation;
  * Potentially this class have to be rewritten in order to use new PHP API and AST tree, for now it
  * still relies on legacy token based parser.
  */
-class InvocationsLocator extends AbstractLocator implements InvocationsInterface
+class InvocationLocator extends AbstractLocator implements InvocationsInterface
 {
     /**
      * {@inheritdoc}

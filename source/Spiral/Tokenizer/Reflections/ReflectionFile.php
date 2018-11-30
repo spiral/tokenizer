@@ -149,9 +149,9 @@ class ReflectionFile extends Component
 
         if (!empty($cache)) {
             //Locating file schema from file, can speed up class location a LOT
-            $this->importSchema($cache);
-
-            return;
+            if ($this->importSchema($cache)) {
+                return;
+            }
         }
 
         //Looking for declarations
@@ -259,10 +259,16 @@ class ReflectionFile extends Component
      * Import cached reflection schema.
      *
      * @param array $cache
+     * @return bool
      */
-    protected function importSchema(array $cache)
+    protected function importSchema(array $cache): bool
     {
-        list($this->hasIncludes, $this->declarations, $this->functions, $this->namespaces) = $cache;
+        if (count($cache) === 4) {
+            list($this->hasIncludes, $this->declarations, $this->functions, $this->namespaces) = $cache;
+            return true;
+        }
+
+        return false;
     }
 
     /**

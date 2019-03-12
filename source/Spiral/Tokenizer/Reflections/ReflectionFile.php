@@ -259,12 +259,14 @@ class ReflectionFile extends Component
      * Import cached reflection schema.
      *
      * @param array $cache
+     *
      * @return bool
      */
     protected function importSchema(array $cache): bool
     {
         if (count($cache) === 4) {
             list($this->hasIncludes, $this->declarations, $this->functions, $this->namespaces) = $cache;
+
             return true;
         }
 
@@ -297,13 +299,9 @@ class ReflectionFile extends Component
                 case T_CLASS:
                 case T_TRAIT:
                 case T_INTERFACE:
-                    if (
-                        $this->tokens[$tokenID][self::TOKEN_TYPE] == T_CLASS
-                        && isset($this->tokens[$tokenID - 1])
-                        && $this->tokens[$tokenID - 1][self::TOKEN_TYPE] == T_PAAMAYIM_NEKUDOTAYIM
-                    ) {
+                    if ($this->isClassNameConst($tokenID)) {
                         //PHP5.5 ClassName::class constant
-                        continue;
+                        continue 2;
                     }
 
                     $this->registerDeclaration($tokenID, $token[self::TOKEN_TYPE]);
@@ -456,6 +454,13 @@ class ReflectionFile extends Component
             self::O_TOKEN => $tokenID,
             self::C_TOKEN => $this->endingToken($tokenID),
         ];
+    }
+
+    private function isClassNameConst(int $tokenID): bool
+    {
+        return $this->tokens[$tokenID][self::TOKEN_TYPE] == T_CLASS
+            && isset($this->tokens[$tokenID - 1])
+            && $this->tokens[$tokenID - 1][self::TOKEN_TYPE] == T_PAAMAYIM_NEKUDOTAYIM;
     }
 
     /**

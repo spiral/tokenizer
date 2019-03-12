@@ -259,7 +259,6 @@ class ReflectionFile extends Component
      * Import cached reflection schema.
      *
      * @param array $cache
-     *
      * @return bool
      */
     protected function importSchema(array $cache): bool
@@ -456,6 +455,13 @@ class ReflectionFile extends Component
         ];
     }
 
+    /**
+     * Check if token ID represents `ClassName::class` constant statement.
+     * 
+     * @param int $tokenID
+     *
+     * @return bool
+     */
     private function isClassNameConst(int $tokenID): bool
     {
         return $this->tokens[$tokenID][self::TOKEN_TYPE] == T_CLASS

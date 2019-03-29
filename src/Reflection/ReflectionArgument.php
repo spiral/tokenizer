@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Spiral Framework.
  *
@@ -36,7 +36,7 @@ class ReflectionArgument
     /**
      * New instance of ReflectionArgument.
      *
-     * @param string $type  Argument type (see top constants).
+     * @param string $type Argument type (see top constants).
      * @param string $value Value in a form of php code.
      */
     public function __construct($type, string $value)

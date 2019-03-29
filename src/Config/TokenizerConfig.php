@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Spiral Framework.
  *
@@ -30,7 +30,7 @@ class TokenizerConfig extends InjectableConfig
      */
     public function getDirectories(): array
     {
-        return $this->config['directories'];
+        return $this->config['directories'] ?? [getcwd()];
     }
 
     /**
@@ -38,6 +38,6 @@ class TokenizerConfig extends InjectableConfig
      */
     public function getExcludes(): array
     {
-        return $this->config['exclude'];
+        return $this->config['exclude'] ?? [];
     }
 }

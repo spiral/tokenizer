@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Spiral Framework.
  *
@@ -187,7 +187,7 @@ class Isolator
      */
     private function uniqueID(): string
     {
-        return hash_hmac('md5', count($this->phpBlocks), random_bytes(32));
+        return hash_hmac('md5', (string)count($this->phpBlocks), random_bytes(32));
     }
 
     /**

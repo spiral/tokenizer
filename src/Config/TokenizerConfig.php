@@ -37,7 +37,7 @@ class TokenizerConfig extends InjectableConfig
      * @return array
      */
     public function getExcludes(): array
-    {
-        return $this->config['exclude'] ?? [];
+    {        
+        return $this->config['exclude'] ?? ['vendor', 'tests'];
     }
 }

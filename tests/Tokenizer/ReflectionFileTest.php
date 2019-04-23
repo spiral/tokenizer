@@ -7,20 +7,15 @@
 
 namespace Spiral\Tokenizer\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
-use Spiral\Core\NullMemory;
-use Spiral\Tokenizer\Config\TokenizerConfig;
 use Spiral\Tokenizer\Reflection\ReflectionArgument;
-use Spiral\Tokenizer\Tokenizer;
+use Spiral\Tokenizer\Reflection\ReflectionFile;
 
 class ReflectionFileTest extends TestCase
 {
     public function testReflection()
     {
-        $tokenizer = new Tokenizer(m::mock(TokenizerConfig::class), new NullMemory());
-
-        $reflection = $tokenizer->fileReflection(__FILE__);
+        $reflection = new ReflectionFile(__FILE__);
 
         $this->assertContains(self::class, $reflection->getClasses());
         $this->assertContains(TestTrait::class, $reflection->getTraits());

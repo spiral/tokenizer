@@ -13,10 +13,10 @@ use Spiral\Tokenizer\Exception\LocatorException;
 /**
  * Can locate classes in a specified directory.
  */
-class ClassLocator extends AbstractLocator implements ClassesInterface
+final class ClassLocator extends AbstractLocator implements ClassesInterface
 {
     /**
-     * {!@inheritdoc}
+     * {@inheritdoc}
      */
     public function getClasses($target = null): array
     {
@@ -64,7 +64,6 @@ class ClassLocator extends AbstractLocator implements ClassesInterface
      *
      * @param \ReflectionClass      $class
      * @param \ReflectionClass|null $target
-     *
      * @return bool
      */
     protected function isTargeted(\ReflectionClass $class, \ReflectionClass $target = null): bool

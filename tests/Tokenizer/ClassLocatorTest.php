@@ -7,10 +7,8 @@
 
 namespace Spiral\Tokenizer\Tests;
 
-use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\AbstractLogger;
-use Spiral\Core\NullMemory;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Spiral\Tokenizer\Tests\Classes\ClassA;
 use Spiral\Tokenizer\Tests\Classes\ClassB;
@@ -118,6 +116,7 @@ class ClassLocatorTest extends TestCase
         //By class
         $locator = $tokenizer->classLocator();
         $logger = new AggregateLogger();
+
         /**
          * @var \Spiral\Tokenizer\ClassLocator $locator
          */
@@ -133,11 +132,12 @@ class ClassLocatorTest extends TestCase
 
     protected function getTokenizer()
     {
-        $config = m::mock(TokenizerConfig::class);
-        $config->shouldReceive('getDirectories')->andReturn([__DIR__]);
-        $config->shouldReceive('getExcludes')->andReturn(['Excluded']);
+        $config = new TokenizerConfig([
+            'directories' => [__DIR__],
+            'exclude'     => ['Excluded']
+        ]);
 
-        $tokenizer = new Tokenizer($config, new NullMemory());
+        $tokenizer = new Tokenizer($config);
 
         return $tokenizer;
     }

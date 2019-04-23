@@ -10,69 +10,33 @@ namespace Spiral\Tokenizer;
 
 use Spiral\Core\Container\InjectorInterface;
 use Spiral\Core\Container\SingletonInterface;
-use Spiral\Core\Exceptions\Container\InjectionException;
-use Spiral\Core\MemoryInterface;
-use Spiral\Core\NullMemory;
+use Spiral\Core\Exception\Container\InjectionException;
 use Spiral\Tokenizer\Config\TokenizerConfig;
-use Spiral\Tokenizer\Reflection\ReflectionFile;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Default implementation of spiral tokenizer support while and blacklisted directories and etc.
- * Current implementation is based on token parsing, AST support is desired in future.
+ * Manages automatic container injections of class and invocation locators.
  */
-class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInterface
+final class Tokenizer implements SingletonInterface, InjectorInterface
 {
     /**
-     * Memory section.
+     * Token array constants.
      */
-    const MEMORY = 'tokenizer';
+    const TYPE = 0;
+    const CODE = 1;
+    const LINE = 2;
 
-    /**
-     * @var TokenizerConfig
-     */
+    /** @var TokenizerConfig */
     protected $config;
-
-    /**
-     * @invisible
-     * @var MemoryInterface
-     */
-    protected $memory;
 
     /**
      * Tokenizer constructor.
      *
      * @param TokenizerConfig $config
-     * @param MemoryInterface $memory Caching.
      */
-    public function __construct(TokenizerConfig $config, MemoryInterface $memory = null)
+    public function __construct(TokenizerConfig $config)
     {
         $this->config = $config;
-        $this->memory = $memory ?? new NullMemory();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fileReflection(string $filename): ReflectionFile
-    {
-        $fileID = sprintf(
-            "%s/%s.%s",
-            self::MEMORY,
-            basename($filename),
-            md5_file($filename)
-        );
-
-        $reflection = new ReflectionFile(
-            $filename,
-            $this->getTokens($filename),
-            (array)$this->memory->loadData($fileID)
-        );
-
-        //Let's save to cache
-        $this->memory->saveData($fileID, $reflection->exportSchema());
-
-        return $reflection;
     }
 
     /**
@@ -80,14 +44,13 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
      *
      * @param array $directories
      * @param array $exclude
-     *
      * @return ClassesInterface
      */
     public function classLocator(
         array $directories = [],
         array $exclude = []
     ): ClassesInterface {
-        return new ClassLocator($this, $this->makeFinder($directories, $exclude));
+        return new ClassLocator($this->makeFinder($directories, $exclude));
     }
 
     /**
@@ -95,14 +58,13 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
      *
      * @param array $directories
      * @param array $exclude
-     *
      * @return InvocationsInterface
      */
     public function invocationLocator(
         array $directories = [],
         array $exclude = []
     ): InvocationsInterface {
-        return new InvocationLocator($this, $this->makeFinder($directories, $exclude));
+        return new InvocationLocator($this->makeFinder($directories, $exclude));
     }
 
     /**
@@ -125,7 +87,6 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
      * Get all tokes for specific file.
      *
      * @param string $filename
-     *
      * @return array
      */
     public static function getTokens(string $filename): array
@@ -134,8 +95,8 @@ class Tokenizer implements SingletonInterface, TokenizerInterface, InjectorInter
 
         $line = 0;
         foreach ($tokens as &$token) {
-            if (isset($token[TokenizerInterface::LINE])) {
-                $line = $token[TokenizerInterface::LINE];
+            if (isset($token[self::LINE])) {
+                $line = $token[self::LINE];
             }
 
             if (!is_array($token)) {

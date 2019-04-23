@@ -8,13 +8,12 @@
 namespace Spiral\Tokenizer\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Core\BootloadManager;
 use Spiral\Core\Container;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
 use Spiral\Tokenizer\Config\TokenizerConfig;
-use Spiral\Tokenizer\InvocationsInterface;
 use Spiral\Tokenizer\InvocationLocator;
+use Spiral\Tokenizer\InvocationsInterface;
 
 class InjectionsTest extends TestCase
 {

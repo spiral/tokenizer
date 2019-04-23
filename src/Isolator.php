@@ -14,8 +14,11 @@ use Spiral\Tokenizer\Exception\IsolatorException;
  * Isolators used to find and replace php blocks in given src. Can be used by view processors,
  * or to remove php code from some string.
  */
-class Isolator
+final class Isolator
 {
+    /** @var int */
+    private $uniqID = 0;
+
     /**
      * Found PHP blocks to be replaced.
      *
@@ -187,7 +190,7 @@ class Isolator
      */
     private function uniqueID(): string
     {
-        return hash_hmac('md5', (string)count($this->phpBlocks), random_bytes(32));
+        return hash_hmac('md5', (string)count($this->phpBlocks), (string)($this->uniqID++));
     }
 
     /**

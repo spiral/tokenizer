@@ -9,9 +9,9 @@ The package provides the ability to locate all instances of desired classes, fun
 Example:
 --------
 ```php
-$classLocator = new ClassLocator((new Finder())->files()->in([__DIR__]));
+$cl = new ClassLocator((new Finder())->files()->in([__DIR__]));
 
-print_r($classLocator->getClasses(TargetInterface::class));
+print_r($cl->getClasses(TargetInterface::class));
 ```
 
 License:

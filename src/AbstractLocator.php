@@ -25,25 +25,14 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
 
     const INJECTOR = Tokenizer::class;
 
-    /**
-     * @invisible
-     *
-     * @var TokenizerInterface
-     */
-    protected $tokenizer = null;
-
-    /**
-     * @var Finder
-     */
+    /** @var Finder */
     protected $finder = null;
 
     /**
-     * @param TokenizerInterface $tokenizer Required to provide ReflectionFile.
-     * @param Finder             $finder
+     * @param Finder $finder
      */
-    public function __construct(TokenizerInterface $tokenizer, Finder $finder)
+    public function __construct(Finder $finder)
     {
-        $this->tokenizer = $tokenizer;
         $this->finder = $finder;
     }
 
@@ -58,7 +47,7 @@ abstract class AbstractLocator implements InjectableInterface, LoggerAwareInterf
          * @var SplFileInfo
          */
         foreach ($this->finder->getIterator() as $file) {
-            $reflection = $this->tokenizer->fileReflection((string)$file);
+            $reflection = new ReflectionFile((string)$file);
 
             if ($reflection->hasIncludes()) {
                 //We are not analyzing files which has includes, it's not safe to require such reflections

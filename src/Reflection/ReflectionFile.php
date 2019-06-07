@@ -1,22 +1,22 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Tokenizer\Reflection;
 
 use Spiral\Tokenizer\Tokenizer;
-use Spiral\Tokenizer\TokenizerInterface;
 
 /**
  * File reflections can fetch information about classes, interfaces, functions and traits declared
  * in file. In addition file reflection provides ability to fetch and describe every method/function
  * call.
  */
-class ReflectionFile
+final class ReflectionFile
 {
     /**
      * Namespace separator.
@@ -26,9 +26,9 @@ class ReflectionFile
     /**
      * Constants for convenience.
      */
-    const TOKEN_TYPE = TokenizerInterface::TYPE;
-    const TOKEN_CODE = TokenizerInterface::CODE;
-    const TOKEN_LINE = TokenizerInterface::LINE;
+    const TOKEN_TYPE = Tokenizer::TYPE;
+    const TOKEN_CODE = Tokenizer::CODE;
+    const TOKEN_LINE = Tokenizer::LINE;
 
     /**
      * Opening and closing token ids.
@@ -67,16 +67,13 @@ class ReflectionFile
         T_AS,
     ];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $filename = '';
 
     /**
      * Parsed tokens array.
      *
-     * @invisible
-     *
+     * @internal
      * @var array
      */
     private $tokens = [];
@@ -84,8 +81,7 @@ class ReflectionFile
     /**
      * Total tokens count.
      *
-     * @invisible
-     *
+     * @internal
      * @var int
      */
     private $countTokens = 0;
@@ -93,8 +89,7 @@ class ReflectionFile
     /**
      * Indicator that file has external includes.
      *
-     * @invisible
-     *
+     * @internal
      * @var bool
      */
     private $hasIncludes = false;
@@ -102,8 +97,7 @@ class ReflectionFile
     /**
      * Namespaces used in file and their token positions.
      *
-     * @invisible
-     *
+     * @internal
      * @var array
      */
     private $namespaces = [];
@@ -111,8 +105,7 @@ class ReflectionFile
     /**
      * Declarations of classes, interfaces and traits.
      *
-     * @invisible
-     *
+     * @internal
      * @var array
      */
     private $declarations = [];
@@ -120,8 +113,7 @@ class ReflectionFile
     /**
      * Declarations of new functions.
      *
-     * @invisible
-     *
+     * @internal
      * @var array
      */
     private $functions = [];
@@ -129,30 +121,19 @@ class ReflectionFile
     /**
      * Every found method/function invocation.
      *
-     * @invisible
-     *
+     * @internal
      * @var ReflectionInvocation[]
      */
     private $invocations = [];
 
     /**
      * @param string $filename
-     * @param array  $tokens
-     * @param array  $cache Tokenizer can construct reflection with pre-created cache to speed up
-     *                      indexation.
      */
-    public function __construct(string $filename, array $tokens = [], array $cache = [])
+    public function __construct(string $filename)
     {
         $this->filename = $filename;
-        $this->tokens = $tokens ?? Tokenizer::getTokens($filename);
-        $this->countTokens = count($tokens);
-
-        if (!empty($cache)) {
-            //Locating file schema from file, can speed up class location a LOT
-            $this->importSchema($cache);
-
-            return;
-        }
+        $this->tokens = Tokenizer::getTokens($filename);
+        $this->countTokens = count($this->tokens);
 
         //Looking for declarations
         $this->locateDeclarations();

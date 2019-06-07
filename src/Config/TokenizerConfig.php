@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Spiral Framework.
  *
  * @license MIT
  * @author  Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Tokenizer\Config;
 
@@ -13,7 +14,7 @@ use Spiral\Core\InjectableConfig;
 /**
  * Tokenizer component configuration.
  */
-class TokenizerConfig extends InjectableConfig
+final class TokenizerConfig extends InjectableConfig
 {
     const CONFIG = 'tokenizer';
 
@@ -38,6 +39,6 @@ class TokenizerConfig extends InjectableConfig
      */
     public function getExcludes(): array
     {
-        return $this->config['exclude'] ?? [];
+        return $this->config['exclude'] ?? ['vendor', 'tests'];
     }
 }

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Spiral\Tokenizer\Exception;
 
 /**
- * Raised when class can not be loaded.
+ * Isolator specific exceptions.
  */
-class LocatorException extends TokenizerException
+class IsolatorException extends TokenizerException
 {
 }

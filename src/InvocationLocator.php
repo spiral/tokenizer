@@ -17,7 +17,7 @@ use Spiral\Tokenizer\Reflection\ReflectionInvocation;
  * Potentially this class have to be rewritten in order to use new PHP API and AST tree, for now it
  * still relies on legacy token based parser.
  */
-class InvocationLocator extends AbstractLocator implements InvocationsInterface
+final class InvocationLocator extends AbstractLocator implements InvocationsInterface
 {
     /**
      * {@inheritdoc}
@@ -38,7 +38,6 @@ class InvocationLocator extends AbstractLocator implements InvocationsInterface
      * Invocations available in finder scope.
      *
      * @param string $signature Method or function signature (name), for pre-filtering.
-     *
      * @return ReflectionInvocation[]|\Generator
      */
     protected function availableInvocations(string $signature = ''): \Generator
@@ -64,10 +63,8 @@ class InvocationLocator extends AbstractLocator implements InvocationsInterface
      *
      * @return bool
      */
-    protected function isTargeted(
-        ReflectionInvocation $invocation,
-        \ReflectionFunctionAbstract $function
-    ): bool {
+    protected function isTargeted(ReflectionInvocation $invocation, \ReflectionFunctionAbstract $function): bool
+    {
         if ($function instanceof \ReflectionFunction) {
             return !$invocation->isMethod();
         }

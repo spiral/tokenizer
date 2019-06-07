@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Spiral Framework.
  *
  * @license   MIT
  * @author    Anton Titov (Wolfy-J)
  */
+declare(strict_types=1);
 
 namespace Spiral\Tokenizer\Reflection;
 
@@ -15,41 +16,27 @@ use Spiral\Tokenizer\Exception\ReflectionException;
  * This reflection is very useful for static analysis and mainly used in Translator component to
  * index translation function usages.
  */
-class ReflectionInvocation
+final class ReflectionInvocation
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $filename = '';
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $line = 0;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $class = '';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $operator = '';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name = '';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $source = '';
 
-    /**
-     * @var ReflectionArgument[]
-     */
+    /** @var ReflectionArgument[] */
     private $arguments = [];
 
     /**

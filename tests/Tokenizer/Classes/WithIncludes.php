@@ -10,7 +10,6 @@ namespace Spiral\Tokenizer\Tests\Classes;
 
 class WithIncludes
 {
-
 }
 
 include "ClassA.php";

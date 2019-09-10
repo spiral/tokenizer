@@ -98,8 +98,7 @@ final class ReflectionArgument
                 $definition = ['type' => self::EXPRESSION, 'value' => '', 'tokens' => []];
             }
 
-            if (
-                $token[ReflectionFile::TOKEN_TYPE] == '('
+            if ($token[ReflectionFile::TOKEN_TYPE] == '('
                 || $token[ReflectionFile::TOKEN_TYPE] == '['
             ) {
                 ++$level;
@@ -107,8 +106,7 @@ final class ReflectionArgument
                 continue;
             }
 
-            if (
-                $token[ReflectionFile::TOKEN_TYPE] == ')'
+            if ($token[ReflectionFile::TOKEN_TYPE] == ')'
                 || $token[ReflectionFile::TOKEN_TYPE] == ']'
             ) {
                 --$level;

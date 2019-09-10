@@ -322,8 +322,7 @@ final class ReflectionFile
             }
 
             $namespace .= $token[self::TOKEN_CODE];
-        } while (
-            isset($this->tokens[$localID])
+        } while (isset($this->tokens[$localID])
             && $this->tokens[$localID][self::TOKEN_CODE] != '{'
             && $this->tokens[$localID][self::TOKEN_CODE] != ';'
         );
@@ -483,8 +482,7 @@ final class ReflectionFile
 
             //We are not indexing function declarations or functions called from $objects.
             if (in_array($tokenType, [T_FUNCTION, T_OBJECT_OPERATOR, T_NEW])) {
-                if (
-                    empty($argumentsTID)
+                if (empty($argumentsTID)
                     && (
                         empty($invocationTID)
                         || $this->getSource($invocationTID, $tokenID - 1) != '$this'
@@ -519,7 +517,6 @@ final class ReflectionFile
 
             //We are inside function arguments and ")" met.
             if (!empty($invocationTID) && ($tokenType == ')' || $tokenType == ']')) {
-
                 --$level;
                 if ($level == -1) {
                     $invocationTID = false;
@@ -560,8 +557,7 @@ final class ReflectionFile
             }
 
             //Seems like we found function/method call
-            if (
-                $tokenType == T_STRING
+            if ($tokenType == T_STRING
                 || $tokenType == T_STATIC
                 || $tokenType == T_NS_SEPARATOR
                 || ($tokenType == T_VARIABLE && $token[self::TOKEN_CODE] == '$this')

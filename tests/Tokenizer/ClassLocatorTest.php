@@ -14,6 +14,8 @@ use Spiral\Tokenizer\Tests\Classes\ClassA;
 use Spiral\Tokenizer\Tests\Classes\ClassB;
 use Spiral\Tokenizer\Tests\Classes\ClassC;
 use Spiral\Tokenizer\Tests\Classes\Inner\ClassD;
+use Spiral\Tokenizer\Tests\Fixtures\TestInterface;
+use Spiral\Tokenizer\Tests\Fixtures\TestTrait;
 use Spiral\Tokenizer\Tokenizer;
 
 class ClassLocatorTest extends TestCase
@@ -56,7 +58,7 @@ class ClassLocatorTest extends TestCase
         $tokenizer = $this->getTokenizer();
 
         //By interface
-        $classes = $tokenizer->classLocator()->getClasses('Spiral\Tokenizer\Tests\TestInterface');
+        $classes = $tokenizer->classLocator()->getClasses(TestInterface::class);
 
         $this->assertArrayHasKey(ClassB::class, $classes);
         $this->assertArrayHasKey(ClassC::class, $classes);
@@ -71,7 +73,7 @@ class ClassLocatorTest extends TestCase
         $tokenizer = $this->getTokenizer();
 
         //By trait
-        $classes = $tokenizer->classLocator()->getClasses('Spiral\Tokenizer\Tests\TestTrait');
+        $classes = $tokenizer->classLocator()->getClasses(TestTrait::class);
 
         $this->assertArrayHasKey(ClassB::class, $classes);
         $this->assertArrayHasKey(ClassC::class, $classes);
@@ -115,7 +117,20 @@ class ClassLocatorTest extends TestCase
 
         //By class
         $locator = $tokenizer->classLocator();
-        $logger = new AggregateLogger();
+        $logger = new class extends AbstractLogger
+        {
+            private $messages = [];
+
+            public function log($level, $message, array $context = [])
+            {
+                $this->messages[] = compact('level', 'message');
+            }
+
+            public function getMessages()
+            {
+                return $this->messages;
+            }
+        };
 
         /**
          * @var \Spiral\Tokenizer\ClassLocator $locator
@@ -134,26 +149,11 @@ class ClassLocatorTest extends TestCase
     {
         $config = new TokenizerConfig([
             'directories' => [__DIR__],
-            'exclude'     => ['Excluded']
+            'exclude' => ['Excluded']
         ]);
 
         $tokenizer = new Tokenizer($config);
 
         return $tokenizer;
-    }
-}
-
-class AggregateLogger extends AbstractLogger
-{
-    private $messages = [];
-
-    public function log($level, $message, array $context = [])
-    {
-        $this->messages[] = compact('level', 'message');
-    }
-
-    public function getMessages()
-    {
-        return $this->messages;
     }
 }

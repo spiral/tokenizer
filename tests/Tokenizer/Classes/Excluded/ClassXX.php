@@ -10,5 +10,4 @@ namespace Spiral\Tokenizer\Tests\Classes\Excluded;
 
 class ClassXX
 {
-
 }

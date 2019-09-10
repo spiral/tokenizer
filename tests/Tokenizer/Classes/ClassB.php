@@ -8,8 +8,8 @@
 
 namespace Spiral\Tokenizer\Tests\Classes;
 
-use Spiral\Tokenizer\Tests\TestInterface;
-use Spiral\Tokenizer\Tests\TestTrait;
+use Spiral\Tokenizer\Tests\Fixtures\TestInterface;
+use Spiral\Tokenizer\Tests\Fixtures\TestTrait;
 
 class ClassB extends ClassA implements TestInterface
 {

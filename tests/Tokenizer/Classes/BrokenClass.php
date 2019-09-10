@@ -10,4 +10,3 @@ namespace Spiral\Tokenizer\Tests\Classes;
 
 class BrokenClass
 {
-

@@ -66,9 +66,8 @@ class ReflectionFileTest extends TestCase
 
 function hello()
 {
-
 }
-
+// phpcs:disable
 trait TestTrait
 {
 

@@ -12,5 +12,4 @@ use Spiral\Tokenizer\Tests\Classes\ClassA;
 
 class ClassD extends ClassA
 {
-
 }

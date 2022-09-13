@@ -1,18 +1,12 @@
 <?php
 
-/**
- * Spiral Framework.
- *
- * @license   MIT
- * @author    Anton Titov (Wolfy-J)
- */
-
 declare(strict_types=1);
 
 namespace Spiral\Tokenizer;
 
 use Spiral\Tokenizer\Exception\LocatorException;
 use Spiral\Tokenizer\Reflection\ReflectionInvocation;
+use Spiral\Tokenizer\Traits\TargetTrait;
 
 /**
  * Can locate invocations in a specified directory. Can only find simple invocations!
@@ -22,9 +16,8 @@ use Spiral\Tokenizer\Reflection\ReflectionInvocation;
  */
 final class InvocationLocator extends AbstractLocator implements InvocationsInterface
 {
-    /**
-     * {@inheritdoc}
-     */
+    public const INJECTOR = InvocationLocatorInjector::class;
+
     public function getInvocations(\ReflectionFunctionAbstract $function): array
     {
         $result = [];
@@ -41,16 +34,16 @@ final class InvocationLocator extends AbstractLocator implements InvocationsInte
      * Invocations available in finder scope.
      *
      * @param string $signature Method or function signature (name), for pre-filtering.
-     * @return ReflectionInvocation[]|\Generator
+     * @return \Generator<int, ReflectionInvocation>
      */
     protected function availableInvocations(string $signature = ''): \Generator
     {
-        $signature = strtolower(trim($signature, '\\'));
+        $signature = \strtolower(\trim($signature, '\\'));
         foreach ($this->availableReflections() as $reflection) {
             foreach ($reflection->getInvocations() as $invocation) {
                 if (
                     !empty($signature)
-                    && strtolower(trim($invocation->getName(), '\\')) != $signature
+                    && \strtolower(\trim($invocation->getName(), '\\')) !== $signature
                 ) {
                     continue;
                 }
@@ -69,6 +62,10 @@ final class InvocationLocator extends AbstractLocator implements InvocationsInte
         try {
             $reflection = $this->classReflection($invocation->getClass());
         } catch (LocatorException $e) {
+            if ($this->debug) {
+                throw $e;
+            }
+
             return false;
         }
 
@@ -79,7 +76,7 @@ final class InvocationLocator extends AbstractLocator implements InvocationsInte
 
         if ($target->isTrait()) {
             //Let's compare traits
-            return in_array($target->getName(), $this->fetchTraits($invocation->getClass()));
+            return \in_array($target->getName(), $this->fetchTraits($invocation->getClass()));
         }
 
         return $reflection->getName() == $target->getName() || $reflection->isSubclassOf($target);

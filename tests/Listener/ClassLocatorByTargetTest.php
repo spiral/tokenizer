@@ -90,7 +90,7 @@ final class ClassLocatorByTargetTest extends TestCase
         array $expected,
     ): void {
         $classes = \array_map(
-            fn (string $class): \ReflectionClass => new \ReflectionClass($class),
+            fn (string $class) => new \ReflectionClass($class),
             [
                 Targets\ConsoleCommand::class,
                 Targets\Filter::class,
@@ -124,6 +124,6 @@ final class ClassLocatorByTargetTest extends TestCase
             $attribute
         );
 
-        self::assertSame($expected, $classes);
+        $this->assertSame($expected, $classes);
     }
 }

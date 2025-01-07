@@ -88,7 +88,7 @@ final class InterfaceLocatorByTargetTest extends TestCase
         array $expected,
     ): void {
         $interfaces = \array_map(
-            fn (string $class): \ReflectionClass => new \ReflectionClass($class),
+            fn (string $class) => new \ReflectionClass($class),
             [
                 Targets\InterfaceWithAllTargets::class,
                 Targets\InterfaceWithAttributeOnClass::class,
@@ -120,6 +120,6 @@ final class InterfaceLocatorByTargetTest extends TestCase
             $attribute
         );
 
-        self::assertSame($expected, $interfaces);
+        $this->assertSame($expected, $interfaces);
     }
 }

@@ -20,15 +20,15 @@ final class InterfaceLocatorTest extends TestCase
         //Direct loading
         $classes = $tokenizer->interfaceLocator()->getInterfaces();
 
-        self::assertArrayHasKey(InterfaceA::class, $classes);
-        self::assertArrayHasKey(InterfaceB::class, $classes);
-        self::assertArrayHasKey(InterfaceC::class, $classes);
-        self::assertArrayHasKey(InterfaceD::class, $classes);
+        $this->assertArrayHasKey(InterfaceA::class, $classes);
+        $this->assertArrayHasKey(InterfaceB::class, $classes);
+        $this->assertArrayHasKey(InterfaceC::class, $classes);
+        $this->assertArrayHasKey(InterfaceD::class, $classes);
 
         //Excluded
-        self::assertArrayNotHasKey(InterfaceXX::class, $classes);
-        self::assertArrayNotHasKey(BadInterface::class, $classes);
-        self::assertArrayNotHasKey('Spiral\Tests\Tokenizer\Interfaces\Bad_Interface', $classes);
+        $this->assertArrayNotHasKey(InterfaceXX::class, $classes);
+        $this->assertArrayNotHasKey(BadInterface::class, $classes);
+        $this->assertArrayNotHasKey('Spiral\Tests\Tokenizer\Interfaces\Bad_Interface', $classes);
     }
 
 
@@ -39,10 +39,10 @@ final class InterfaceLocatorTest extends TestCase
         //By interface
         $classes = $tokenizer->interfaceLocator()->getInterfaces(TestInterface::class);
 
-        self::assertArrayHasKey(InterfaceB::class, $classes);
-        self::assertArrayHasKey(InterfaceC::class, $classes);
+        $this->assertArrayHasKey(InterfaceB::class, $classes);
+        $this->assertArrayHasKey(InterfaceC::class, $classes);
 
-        self::assertArrayNotHasKey(InterfaceA::class, $classes);
-        self::assertArrayNotHasKey(InterfaceD::class, $classes);
+        $this->assertArrayNotHasKey(InterfaceA::class, $classes);
+        $this->assertArrayNotHasKey(InterfaceD::class, $classes);
     }
 }

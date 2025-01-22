@@ -26,7 +26,10 @@ class InjectionsTest extends TestCase
 
         $container->bindSingleton(ClassesInterface::class, ClassLocator::class);
 
-        self::assertInstanceOf(ClassLocator::class, $container->get(ClassesInterface::class));
+        $this->assertInstanceOf(
+            ClassLocator::class,
+            $container->get(ClassesInterface::class)
+        );
     }
 
     public function testInvocationsLocator(): void
@@ -39,7 +42,10 @@ class InjectionsTest extends TestCase
 
         $container->bindSingleton(InvocationsInterface::class, InvocationLocator::class);
 
-        self::assertInstanceOf(InvocationLocator::class, $container->get(InvocationsInterface::class));
+        $this->assertInstanceOf(
+            InvocationLocator::class,
+            $container->get(InvocationsInterface::class)
+        );
     }
 
     public function testEnumsLocator(): void
@@ -52,7 +58,10 @@ class InjectionsTest extends TestCase
 
         $container->bindSingleton(EnumsInterface::class, EnumLocator::class);
 
-        self::assertInstanceOf(EnumLocator::class, $container->get(EnumsInterface::class));
+        $this->assertInstanceOf(
+            EnumLocator::class,
+            $container->get(EnumsInterface::class)
+        );
     }
 
     public function testInterfacesLocator(): void
@@ -65,6 +74,9 @@ class InjectionsTest extends TestCase
 
         $container->bindSingleton(InterfacesInterface::class, InterfaceLocator::class);
 
-        self::assertInstanceOf(InterfaceLocator::class, $container->get(InterfacesInterface::class));
+        $this->assertInstanceOf(
+            InterfaceLocator::class,
+            $container->get(InterfacesInterface::class)
+        );
     }
 }

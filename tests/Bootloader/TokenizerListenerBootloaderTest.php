@@ -47,7 +47,10 @@ final class TokenizerListenerBootloaderTest extends TestCase
 
         $config = new TokenizerConfig(['cache' => ['directory' => 'cache', 'enabled' => true]]);
 
-        self::assertSame($loader, $bootloader->{$method}($factory, $config));
+        $this->assertSame(
+            $loader,
+            $bootloader->{$method}($factory, $config),
+        );
     }
 
     public function testAddDirectoryInBootloaderInit(): void
@@ -57,7 +60,10 @@ final class TokenizerListenerBootloaderTest extends TestCase
         $kernel = TestCoreWithTokenizer::create(directories: ['root' => __DIR__], container: $container);
         $kernel->run();
 
-        self::assertContains(\dirname(__DIR__) . '/Fixtures/Bootloader', $container->get(TokenizerConfig::class)->getDirectories());
+        $this->assertTrue(\in_array(
+            \dirname(__DIR__) . '/Fixtures/Bootloader',
+            $container->get(TokenizerConfig::class)->getDirectories()
+        ));
     }
 
 }

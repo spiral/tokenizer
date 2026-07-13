@@ -47,7 +47,8 @@ final class TokenizerBootloader extends Bootloader
 
     public function __construct(
         private readonly ConfiguratorInterface $config,
-    ) {}
+    ) {
+    }
 
     public function init(BinderInterface $binder, DirectoriesInterface $dirs, EnvironmentInterface $env): void
     {

@@ -22,7 +22,6 @@ final class ReflectionFile
      * Constants for convenience.
      */
     public const TOKEN_TYPE = Tokenizer::TYPE;
-
     public const TOKEN_CODE = Tokenizer::CODE;
     public const TOKEN_LINE = Tokenizer::LINE;
 
@@ -30,7 +29,6 @@ final class ReflectionFile
      * Opening and closing token ids.
      */
     public const O_TOKEN = 0;
-
     public const C_TOKEN = 1;
 
     /**
@@ -114,7 +112,7 @@ final class ReflectionFile
     private array $invocations = [];
 
     public function __construct(
-        private readonly string $filename,
+        private readonly string $filename
     ) {
         $this->tokens = Tokenizer::getTokens($filename);
         $this->countTokens = \count($this->tokens);
@@ -229,7 +227,7 @@ final class ReflectionFile
     /**
      * Import cached reflection schema.
      */
-    protected function importSchema(array $cache): void
+    protected function importSchema(array $cache)
     {
         [$this->hasIncludes, $this->declarations, $this->functions, $this->namespaces] = $cache;
     }
@@ -237,7 +235,7 @@ final class ReflectionFile
     /**
      * Locate every class, interface, trait or function definition.
      */
-    protected function locateDeclarations(): void
+    protected function locateDeclarations()
     {
         foreach ($this->getTokens() as $tokenID => $token) {
             if (!\in_array($token[self::TOKEN_TYPE], self::$processTokens)) {
@@ -359,8 +357,8 @@ final class ReflectionFile
         }
 
         if (empty($localAlias)) {
-            $names = \explode('\\', $class);
-            $localAlias = \end($names);
+            $names = explode('\\', $class);
+            $localAlias = end($names);
         }
 
         $this->namespaces[$namespace][self::N_USES][\trim($localAlias)] = \trim($class);
@@ -529,7 +527,7 @@ final class ReflectionFile
                         $argumentsTID,
                         $tokenID,
                         $arguments,
-                        $invocationLevel,
+                        $invocationLevel
                     );
 
                     //Closing search
@@ -582,7 +580,7 @@ final class ReflectionFile
         int $argumentsID,
         int $endID,
         array $arguments,
-        int $invocationLevel,
+        int $invocationLevel
     ): void {
         //Nested invocations
         $this->locateInvocations($arguments, $invocationLevel + 1);
@@ -602,7 +600,7 @@ final class ReflectionFile
             $name,
             ReflectionArgument::locateArguments($arguments),
             $this->getSource($invocationID, $endID),
-            $invocationLevel,
+            $invocationLevel
         );
     }
 

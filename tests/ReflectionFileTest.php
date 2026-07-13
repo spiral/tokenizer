@@ -1,24 +1,22 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Spiral\Tests\Tokenizer;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Tokenizer\Reflection\ReflectionArgument;
 use Spiral\Tokenizer\Reflection\ReflectionFile;
 
-final class ReflectionFileTest extends TestCase
+class ReflectionFileTest extends TestCase
 {
     public function testReflection(): void
     {
         $reflection = new ReflectionFile(__FILE__);
 
-        self::assertContains(self::class, $reflection->getClasses());
-        self::assertContains(TestTrait::class, $reflection->getTraits());
-        self::assertContains(TestInterface::class, $reflection->getInterfaces());
+        $this->assertContains(self::class, $reflection->getClasses());
+        $this->assertContains(TestTrait::class, $reflection->getTraits());
+        $this->assertContains(TestInterface::class, $reflection->getInterfaces());
 
-        self::assertSame([__NAMESPACE__ . '\hello'], $reflection->getFunctions());
+        $this->assertSame([__NAMESPACE__ . '\hello'], $reflection->getFunctions());
 
         $functionA = null;
         $functionB = null;
@@ -33,32 +31,32 @@ final class ReflectionFileTest extends TestCase
             }
         }
 
-        self::assertInstanceOf(\Spiral\Tokenizer\Reflection\ReflectionInvocation::class, $functionA);
-        self::assertInstanceOf(\Spiral\Tokenizer\Reflection\ReflectionInvocation::class, $functionB);
+        $this->assertNotEmpty($functionA);
+        $this->assertNotEmpty($functionB);
 
-        self::assertCount(2, $functionA->getArguments());
-        self::assertSame(ReflectionArgument::VARIABLE, $functionA->getArgument(0)->getType());
-        self::assertSame('$this', $functionA->getArgument(0)->getValue());
+        $this->assertSame(2, count($functionA->getArguments()));
+        $this->assertSame(ReflectionArgument::VARIABLE, $functionA->getArgument(0)->getType());
+        $this->assertSame('$this', $functionA->getArgument(0)->getValue());
 
-        self::assertSame(ReflectionArgument::EXPRESSION, $functionA->getArgument(1)->getType());
-        self::assertSame('$a+$b', $functionA->getArgument(1)->getValue());
+        $this->assertSame(ReflectionArgument::EXPRESSION, $functionA->getArgument(1)->getType());
+        $this->assertSame('$a+$b', $functionA->getArgument(1)->getValue());
 
-        self::assertSame(2, $functionB->countArguments());
+        $this->assertSame(2, $functionB->countArguments());
 
-        self::assertSame(ReflectionArgument::STRING, $functionB->getArgument(0)->getType());
-        self::assertSame('"string"', $functionB->getArgument(0)->getValue());
-        self::assertSame('string', $functionB->getArgument(0)->stringValue());
+        $this->assertSame(ReflectionArgument::STRING, $functionB->getArgument(0)->getType());
+        $this->assertSame('"string"', $functionB->getArgument(0)->getValue());
+        $this->assertSame('string', $functionB->getArgument(0)->stringValue());
 
-        self::assertSame(ReflectionArgument::CONSTANT, $functionB->getArgument(1)->getType());
-        self::assertSame('123', $functionB->getArgument(1)->getValue());
+        $this->assertSame(ReflectionArgument::CONSTANT, $functionB->getArgument(1)->getType());
+        $this->assertSame('123', $functionB->getArgument(1)->getValue());
     }
 
     public function testReflectionFileWithNamedParameters(): void
     {
         $reflection = new ReflectionFile(__DIR__ . '/Classes/ClassWithNamedParameter.php');
 
-        self::assertSame([
-            \Spiral\Tests\Tokenizer\Classes\ClassWithNamedParameter::class,
+        $this->assertSame([
+            'Spiral\Tests\Tokenizer\Classes\ClassWithNamedParameter',
         ], $reflection->getClasses());
     }
 
@@ -66,8 +64,8 @@ final class ReflectionFileTest extends TestCase
     {
         $reflection = new ReflectionFile(__DIR__ . '/Classes/ClassWithAnonymousClass.php');
 
-        self::assertSame([
-            \Spiral\Tests\Tokenizer\Classes\ClassWithAnonymousClass::class,
+        $this->assertSame([
+            'Spiral\Tests\Tokenizer\Classes\ClassWithAnonymousClass',
         ], $reflection->getClasses());
     }
 
@@ -75,7 +73,7 @@ final class ReflectionFileTest extends TestCase
     {
         $reflection = new ReflectionFile(__DIR__ . '/Classes/ClassWithHeredoc.php');
 
-        self::assertSame([
+        $this->assertSame([
             'Spiral\Tests\Tokenizer\Classes\ClassWithHeredoc',
         ], $reflection->getClasses());
     }
@@ -84,8 +82,8 @@ final class ReflectionFileTest extends TestCase
     {
         $reflection = new ReflectionFile(__DIR__ . '/Classes/ClassD.php');
 
-        self::assertSame([
-            \Spiral\Tests\Tokenizer\Classes\ClassD::class,
+        $this->assertSame([
+            'Spiral\Tests\Tokenizer\Classes\ClassD',
         ], $reflection->getEnums());
     }
 
@@ -93,8 +91,8 @@ final class ReflectionFileTest extends TestCase
     {
         $reflection = new ReflectionFile(__DIR__ . '/Classes/ClassE.php');
 
-        self::assertSame([
-            \Spiral\Tests\Tokenizer\Classes\ClassE::class,
+        $this->assertSame([
+            'Spiral\Tests\Tokenizer\Classes\ClassE',
         ], $reflection->getEnums());
     }
 
@@ -102,12 +100,12 @@ final class ReflectionFileTest extends TestCase
     {
         $reflection = new ReflectionFile(__DIR__ . '/Interfaces/InterfaceA.php');
 
-        self::assertSame([
-            \Spiral\Tests\Tokenizer\Interfaces\InterfaceA::class,
+        $this->assertSame([
+            'Spiral\Tests\Tokenizer\Interfaces\InterfaceA',
         ], $reflection->getInterfaces());
     }
 
-    private function deadend(): void
+    private function deadend()
     {
         $a = $b = null;
         test_function_a($this, $a + $b);
@@ -115,7 +113,7 @@ final class ReflectionFileTest extends TestCase
     }
 }
 
-function hello(): void
+function hello()
 {
 }
 

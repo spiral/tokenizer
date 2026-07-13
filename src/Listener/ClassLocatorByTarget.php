@@ -16,7 +16,8 @@ final class ClassLocatorByTarget
     public function __construct(
         private readonly ClassesInterface $classes,
         private readonly ScopedClassesInterface $scopedClasses,
-    ) {}
+    ) {
+    }
 
     /**
      * @return class-string[]

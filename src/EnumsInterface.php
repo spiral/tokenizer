@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Spiral\Tokenizer;
 
+use ReflectionEnum;
+
 /**
  * Enum locator interface.
  */
@@ -16,7 +18,7 @@ interface EnumsInterface
      *
      * @param object|class-string|null $target  Enum, interface or trait parent. By default - null (all enums).
      *
-     * @return array<class-string, \ReflectionEnum>
+     * @return array<class-string, ReflectionEnum>
      */
     public function getEnums(object|string|null $target = null): array;
 }

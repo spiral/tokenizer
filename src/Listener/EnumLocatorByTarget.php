@@ -16,7 +16,8 @@ final class EnumLocatorByTarget
     public function __construct(
         private readonly EnumsInterface $enums,
         private readonly ScopedEnumsInterface $scopedEnums,
-    ) {}
+    ) {
+    }
 
     /**
      * @return class-string[]

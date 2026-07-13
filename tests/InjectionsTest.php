@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Spiral\Tests\Tokenizer;
 
 use PHPUnit\Framework\TestCase;
@@ -16,7 +14,7 @@ use Spiral\Tokenizer\InterfacesInterface;
 use Spiral\Tokenizer\InvocationLocator;
 use Spiral\Tokenizer\InvocationsInterface;
 
-final class InjectionsTest extends TestCase
+class InjectionsTest extends TestCase
 {
     public function testClassLocator(): void
     {
@@ -28,7 +26,10 @@ final class InjectionsTest extends TestCase
 
         $container->bindSingleton(ClassesInterface::class, ClassLocator::class);
 
-        self::assertInstanceOf(ClassLocator::class, $container->get(ClassesInterface::class));
+        $this->assertInstanceOf(
+            ClassLocator::class,
+            $container->get(ClassesInterface::class)
+        );
     }
 
     public function testInvocationsLocator(): void
@@ -41,7 +42,10 @@ final class InjectionsTest extends TestCase
 
         $container->bindSingleton(InvocationsInterface::class, InvocationLocator::class);
 
-        self::assertInstanceOf(InvocationLocator::class, $container->get(InvocationsInterface::class));
+        $this->assertInstanceOf(
+            InvocationLocator::class,
+            $container->get(InvocationsInterface::class)
+        );
     }
 
     public function testEnumsLocator(): void
@@ -54,7 +58,10 @@ final class InjectionsTest extends TestCase
 
         $container->bindSingleton(EnumsInterface::class, EnumLocator::class);
 
-        self::assertInstanceOf(EnumLocator::class, $container->get(EnumsInterface::class));
+        $this->assertInstanceOf(
+            EnumLocator::class,
+            $container->get(EnumsInterface::class)
+        );
     }
 
     public function testInterfacesLocator(): void
@@ -67,6 +74,9 @@ final class InjectionsTest extends TestCase
 
         $container->bindSingleton(InterfacesInterface::class, InterfaceLocator::class);
 
-        self::assertInstanceOf(InterfaceLocator::class, $container->get(InterfacesInterface::class));
+        $this->assertInstanceOf(
+            InterfaceLocator::class,
+            $container->get(InterfacesInterface::class)
+        );
     }
 }

@@ -66,7 +66,7 @@ final class EnumLocatorByTargetTest extends TestCase
         array $expected,
     ): void {
         $enums = \array_map(
-            fn (string $class): \ReflectionEnum => new \ReflectionEnum($class),
+            fn (string $class) => new \ReflectionEnum($class),
             [
                 Targets\EnumWithAttributeOnClass::class,
                 Targets\EnumWithAllTargets::class,
@@ -94,6 +94,6 @@ final class EnumLocatorByTargetTest extends TestCase
             $attribute
         );
 
-        self::assertSame($expected, $enums);
+        $this->assertSame($expected, $enums);
     }
 }

@@ -1,31 +1,29 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Spiral\Tests\Tokenizer;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 
-final class ConfigTest extends TestCase
+class ConfigTest extends TestCase
 {
     public function testDebugNotSet(): void
     {
         $config = new TokenizerConfig([]);
 
-        self::assertFalse($config->isDebug());
+        $this->assertFalse($config->isDebug());
     }
 
     public function testDebug(): void
     {
         $config = new TokenizerConfig(['debug' => false]);
-        self::assertFalse($config->isDebug());
+        $this->assertFalse($config->isDebug());
 
         $config = new TokenizerConfig(['debug' => true]);
-        self::assertTrue($config->isDebug());
+        $this->assertTrue($config->isDebug());
 
         $config = new TokenizerConfig(['debug' => 1]);
-        self::assertTrue($config->isDebug());
+        $this->assertTrue($config->isDebug());
     }
 
     public function testDirectories(): void
@@ -33,7 +31,7 @@ final class ConfigTest extends TestCase
         $config = new TokenizerConfig([
             'directories' => ['a', 'b', 'c'],
         ]);
-        self::assertSame(['a', 'b', 'c'], $config->getDirectories());
+        $this->assertSame(['a', 'b', 'c'], $config->getDirectories());
     }
 
     public function testExcluded(): void
@@ -41,7 +39,7 @@ final class ConfigTest extends TestCase
         $config = new TokenizerConfig([
             'exclude' => ['a', 'b', 'c'],
         ]);
-        self::assertSame(['a', 'b', 'c'], $config->getExcludes());
+        $this->assertSame(['a', 'b', 'c'], $config->getExcludes());
     }
 
     public function testNonExistScopeShouldReturnDefaultDirectories(): void
@@ -57,7 +55,7 @@ final class ConfigTest extends TestCase
             ],
         ]);
 
-        self::assertSame([
+        $this->assertSame([
             'directories' => ['a'],
             'exclude' => ['b'],
         ], $config->getScope('bar'));
@@ -82,17 +80,17 @@ final class ConfigTest extends TestCase
             ],
         ]);
 
-        self::assertSame([
+        $this->assertSame([
             'directories' => ['c'],
             'exclude' => ['d'],
         ], $config->getScope('foo'));
 
-        self::assertSame([
+        $this->assertSame([
             'directories' => ['c'],
             'exclude' => ['b'],
         ], $config->getScope('bar'));
 
-        self::assertSame([
+        $this->assertSame([
             'directories' => ['a'],
             'exclude' => ['d'],
         ], $config->getScope('baz'));
@@ -101,7 +99,7 @@ final class ConfigTest extends TestCase
     public function testGetsCacheDirectory(): void
     {
         $config = new TokenizerConfig();
-        self::assertNull($config->getCacheDirectory());
+        $this->assertNull($config->getCacheDirectory());
 
         $config = new TokenizerConfig([
             'cache' => [
@@ -109,58 +107,58 @@ final class ConfigTest extends TestCase
             ],
         ]);
 
-        self::assertSame('foo', $config->getCacheDirectory());
+        $this->assertSame('foo', $config->getCacheDirectory());
     }
 
     public function testCacheEnabled(): void
     {
         $config = new TokenizerConfig();
-        self::assertFalse($config->isCacheEnabled());
+        $this->assertFalse($config->isCacheEnabled());
 
         $config = new TokenizerConfig([
             'cache' => [
                 'enabled' => true,
             ],
         ]);
-        self::assertTrue($config->isCacheEnabled());
+        $this->assertTrue($config->isCacheEnabled());
     }
 
     public function testLoadClassesEnabled(): void
     {
         $config = new TokenizerConfig();
-        self::assertTrue($config->isLoadClassesEnabled()); // by default
+        $this->assertTrue($config->isLoadClassesEnabled()); // by default
 
         $config = new TokenizerConfig([
             'load' => [
                 'classes' => false,
             ],
         ]);
-        self::assertFalse($config->isLoadClassesEnabled());
+        $this->assertFalse($config->isLoadClassesEnabled());
     }
 
     public function testLoadEnumsEnabled(): void
     {
         $config = new TokenizerConfig();
-        self::assertFalse($config->isLoadEnumsEnabled()); // by default
+        $this->assertFalse($config->isLoadEnumsEnabled()); // by default
 
         $config = new TokenizerConfig([
             'load' => [
                 'enums' => true,
             ],
         ]);
-        self::assertTrue($config->isLoadEnumsEnabled());
+        $this->assertTrue($config->isLoadEnumsEnabled());
     }
 
     public function testLoadInterfacesEnabled(): void
     {
         $config = new TokenizerConfig();
-        self::assertFalse($config->isLoadInterfacesEnabled()); // by default
+        $this->assertFalse($config->isLoadInterfacesEnabled()); // by default
 
         $config = new TokenizerConfig([
             'load' => [
                 'interfaces' => true,
             ],
         ]);
-        self::assertTrue($config->isLoadInterfacesEnabled());
+        $this->assertTrue($config->isLoadInterfacesEnabled());
     }
 }
